@@ -10,7 +10,9 @@ const Sidebar = () => {
   // ============================
   // THEME STATE & LISTENER
   // ============================
- 
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") || "civicLight"
+  );
 
   useEffect(() => {
     const handleThemeChange = () => {
