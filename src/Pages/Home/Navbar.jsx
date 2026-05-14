@@ -57,7 +57,7 @@ const Navbar = () => {
           <Link to="/" className="flex items-center gap-2">
             <img className="h-10 w-10 object-contain" src={logo} alt="logo" />
             <span className={`text-xl font-semibold ${textClass}`}>
-              CivicConnect
+              Civic Rights
             </span>
           </Link>
 

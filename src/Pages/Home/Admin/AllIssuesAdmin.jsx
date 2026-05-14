@@ -166,7 +166,7 @@ const AllIssuesAdmin = () => {
           {!assignedTo && (
             <button
               onClick={() => setAssignIssue(issue)}
-              className="btn btn-primary btn-xs"
+              className="btn btn-primary bg-amber-500 text-white btn-xs"
             >
               Assign
             </button>
@@ -186,13 +186,13 @@ const AllIssuesAdmin = () => {
         <>
           <button
             onClick={() => setReassignIssue(issue)}
-            className="btn btn-warning btn-xs"
+            className="btn btn-warning bg-blue-600 text-white rounded-2xl p-3 btn-xs"
           >
             Reassign
           </button>
           <button
             onClick={() => handleResolve(_id)}
-            className="btn btn-success btn-xs"
+            className="btn btn-success bg-blue-400 text-white p-3 rounded-2xl btn-xs"
           >
             Resolve
           </button>
@@ -204,7 +204,7 @@ const AllIssuesAdmin = () => {
       return (
         <button
           onClick={() => handleClose(_id)}
-          className="btn btn-neutral btn-xs"
+          className="btn btn-active btn-xs"
         >
           Close
         </button>
