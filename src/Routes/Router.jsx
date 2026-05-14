@@ -37,6 +37,139 @@ import StaffPaymentLog from "../Pages/Home/Coverage/StaffPaymentLog";
 import ErrorPage from "../Pages/Home/ErrorPage";
 import EditIssue from "../Pages/Issues/EditIssue";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/coverage",
+        element: <Coverage></Coverage>,
+        loader: () => fetch("/OurCenters.json").then((res) => res.json()),
+      },
+      {
+        path: "/reportIssue",
+        element: (
+          <PrivateRoute>
+            <ReportIssue />
+          </PrivateRoute>
+        ),
+        loader: () => fetch("/OurCenters.json").then((res) => res.json()),
+      },
+      { path: "/all-issues", element: <AllIssues /> },
+      {
+        path: "/my-issues",
+        element: (
+          <PrivateRoute>
+            <MyIssues />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/be_a_staff",
+        element: (
+          <PrivateRoute>
+            <BeAStaff />
+          </PrivateRoute>
+        ),
+        loader: () => fetch("/OurCenters.json").then((res) => res.json()),
+      },
+      {
+        path: "/viewDetails/:id",
+        element: <IssueDetails />,
+      },
+      {
+        path: "/edit-issue/:id",
+        element: (
+          <PrivateRoute>
+            <EditIssue />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/boost-payment/:issueId",
+        element: (
+          <PrivateRoute>
+            <BoostPayment />
+          </PrivateRoute>
+        ),
+      },
+      { path: "/boost-success", element: <BoostSuccess /> },
+      { path: "/boost-cancel", element: <BoostCancel /> },
+      { path: "/subscribe-success", element: <SubscribeSuccess /> },
+      { path: "/subscribe-cancel", element: <SubscribeCancel /> },
 
+      // -------------------------
+      // Dashboard Routes
+      // -------------------------
+      {
+        path: "/dashboard",
+        element: (
+          <PrivateRoute>
+            <DashboardLayout />
+          </PrivateRoute>
+        ),
+        children: [
+          {
+            index: true,
+            element: <DashboardHome />,
+          },
+          {
+            path: "staff",
+            element: <StaffDashboard />,
+          },
+          {
+            path: "manage_staff",
+            element: <StaffManageMent />,
+          },
+          {
+            path: "paymentLogs",
+            element: <PatmentLogs />,
+          },
+          {
+            path: "staffCreation",
+            element: <StaffCreation />,
+            loader: () => fetch("/OurCenters.json").then((res) => res.json()),
+          },
+          {
+            path: "manage_user",
+            element: <UserManagement />,
+          },
+          {
+            path: "staffAssignedIssue",
+            element: <StaffAssignedIssue />,
+          },
+          {
+            path: "staffPayments",
+            element: <StaffPaymentLog />,
+          },
+          {
+            path: "citizen",
+            element: <CitizenDashboard />,
+          },
+          {
+            path: "allIssuesAdmin",
+            element: <AllIssuesAdmin />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
+  },
+]);
 
 export default router;
