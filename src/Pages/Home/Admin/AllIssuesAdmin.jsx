@@ -9,9 +9,6 @@ import { AssignModal } from "../Modal/AssignModal";
 import IssuesTableSkeleton from "../IssuesTableSkeleton ";
 
 const AllIssuesAdmin = () => {
-  // ============================
-  // THEME
-  // ============================
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") || "civicLight"
   );
@@ -26,20 +23,17 @@ const AllIssuesAdmin = () => {
   const isLight = theme === "civicLight";
   const titleClass = isLight ? "text-gray-900" : "text-gray-100";
   const textClass = isLight ? "text-gray-700" : "text-gray-300";
-  const tableHeaderBg = isLight ? "bg-gray-100" : "bg-gray-700";
+  const tableHeaderBg = isLight ? "bg-gray-100" : "bg-gray-800";
   const tableBg = isLight ? "bg-white" : "bg-gray-900";
   const tableBorder = isLight ? "border-gray-200" : "border-gray-700";
   const rowHoverBg = isLight ? "hover:bg-gray-50" : "hover:bg-gray-800";
+  const mobileCardBg = isLight ? "bg-white" : "bg-gray-800";
 
   const axiosSecure = useAxiosSecure();
   const [assignIssue, setAssignIssue] = useState(null);
   const [reassignIssue, setReassignIssue] = useState(null);
-
   const { role, roleLoading } = useRole();
 
-  // ============================
-  // DATA FETCH
-  // ============================
   const {
     data = { issues: [] },
     refetch,
@@ -155,8 +149,28 @@ const AllIssuesAdmin = () => {
   };
 
   // ============================
-  // ACTION BUTTONS
+  // ACTION BUTTONS — inline style দিয়ে color force করা হয়েছে
+  // DaisyUI override এর কারণে bg কাজ না করলেও style সবসময় কাজ করে
   // ============================
+  const btnBase = {
+    border: "none",
+    borderRadius: "6px",
+    padding: "4px 10px",
+    fontSize: "12px",
+    fontWeight: "600",
+    cursor: "pointer",
+    color: "#fff",
+    whiteSpace: "nowrap",
+  };
+
+  const btnStyles = {
+    assign:   { ...btnBase, backgroundColor: "#f59e0b" }, // amber
+    reject:   { ...btnBase, backgroundColor: "#ef4444" }, // red
+    reassign: { ...btnBase, backgroundColor: "#3b82f6" }, // blue
+    resolve:  { ...btnBase, backgroundColor: "#22c55e" }, // green
+    close:    { ...btnBase, backgroundColor: "#6b7280" }, // gray
+  };
+
   const renderActions = (issue) => {
     const { _id, status, assignedTo } = issue;
 
@@ -164,17 +178,11 @@ const AllIssuesAdmin = () => {
       return (
         <>
           {!assignedTo && (
-            <button
-              onClick={() => setAssignIssue(issue)}
-              className="btn btn-primary bg-amber-500 text-white btn-xs"
-            >
+            <button style={btnStyles.assign} onClick={() => setAssignIssue(issue)}>
               Assign
             </button>
           )}
-          <button
-            onClick={() => handleReject(_id)}
-            className="btn btn-error btn-xs"
-          >
+          <button style={btnStyles.reject} onClick={() => handleReject(_id)}>
             Reject
           </button>
         </>
@@ -184,16 +192,10 @@ const AllIssuesAdmin = () => {
     if (status === "In-Progress") {
       return (
         <>
-          <button
-            onClick={() => setReassignIssue(issue)}
-            className="btn btn-warning bg-blue-600 text-white rounded-2xl p-3 btn-xs"
-          >
+          <button style={btnStyles.reassign} onClick={() => setReassignIssue(issue)}>
             Reassign
           </button>
-          <button
-            onClick={() => handleResolve(_id)}
-            className="btn btn-success bg-blue-400 text-white p-3 rounded-2xl btn-xs"
-          >
+          <button style={btnStyles.resolve} onClick={() => handleResolve(_id)}>
             Resolve
           </button>
         </>
@@ -202,112 +204,127 @@ const AllIssuesAdmin = () => {
 
     if (status === "Resolved") {
       return (
-        <button
-          onClick={() => handleClose(_id)}
-          className="btn btn-active btn-xs"
-        >
+        <button style={btnStyles.close} onClick={() => handleClose(_id)}>
           Close
         </button>
       );
     }
 
     return (
-      <span style={{ fontSize: "12px", opacity: 0.4, fontStyle: "italic" }}>
-        —
-      </span>
+      <span style={{ fontSize: "12px", opacity: 0.4, fontStyle: "italic" }}>—</span>
     );
   };
 
-  // ============================
-  // LOADING
-  // ============================
   if (roleLoading || isLoading) return <IssuesTableSkeleton />;
 
-  // ============================
-  // RENDER
-  // ============================
   return (
-    <div className="p-6">
+    <div className="p-4 md:p-6">
       <h2 className={`text-2xl font-bold mb-4 ${titleClass}`}>All Issues</h2>
 
       {data.issues.length === 0 ? (
         <p className={`text-center py-10 ${textClass}`}>No issues found.</p>
       ) : (
-        <div className={`overflow-x-auto shadow rounded-lg ${tableBg}`}>
-          <table className={`table-auto w-full border ${tableBorder}`}>
-            <thead className={tableHeaderBg}>
-              <tr>
-                {[
-                  "Title",
-                  "Location",
-                  "Category",
-                  "Status",
-                  "Priority",
-                  "Assigned Staff",
-                  "Actions",
-                ].map((h) => (
-                  <th
-                    key={h}
-                    className={`px-4 py-3 border ${tableBorder} text-left ${titleClass}`}
-                  >
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {data.issues.map((issue) => (
-                <tr
-                  key={issue._id}
-                  className={`${rowHoverBg} transition-colors ${textClass}`}
-                >
-                  <td className={`px-4 py-3 border ${tableBorder} font-medium ${titleClass}`}>
-                    {issue.title}
-                  </td>
-                  <td className={`px-4 py-3 border ${tableBorder}`}>
-                    {issue.reporterDistrict}
-                  </td>
-                  <td className={`px-4 py-3 border ${tableBorder}`}>
-                    {issue.category}
-                  </td>
-                  <td className={`px-4 py-3 border ${tableBorder}`}>
-                    <span className={getStatusBadge(issue.status)}>
-                      {issue.status}
-                    </span>
-                  </td>
-                  <td className={`px-4 py-3 border ${tableBorder}`}>
-                    <span
-                      className={
-                        issue.priority === "High"
-                          ? "badge badge-error badge-outline"
-                          : "badge badge-ghost badge-outline"
-                      }
+        <>
+          {/* ========================
+              DESKTOP TABLE (md+)
+          ======================== */}
+          <div className={`hidden md:block overflow-x-auto shadow rounded-xl ${tableBg}`}>
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className={tableHeaderBg}>
+                  {["Title", "Location", "Category", "Status", "Priority", "Assigned Staff", "Actions"].map((h) => (
+                    <th
+                      key={h}
+                      className={`px-4 py-3 border ${tableBorder} text-left text-sm font-semibold ${titleClass}`}
                     >
-                      {issue.priority}
-                    </span>
-                  </td>
-                  <td className={`px-4 py-3 border ${tableBorder}`}>
-                    {issue.assignedTo?.email || (
-                      <span className="italic opacity-40">Unassigned</span>
-                    )}
-                  </td>
-                  <td className={`px-4 py-3 border ${tableBorder}`}>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "6px",
-                        flexWrap: "wrap",
-                        alignItems: "center",
-                      }}
-                    >
-                      {renderActions(issue)}
-                    </div>
-                  </td>
+                      {h}
+                    </th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {data.issues.map((issue) => (
+                  <tr key={issue._id} className={`${rowHoverBg} transition-colors`}>
+                    <td className={`px-4 py-3 border ${tableBorder} font-medium text-sm ${titleClass}`}>
+                      {issue.title}
+                    </td>
+                    <td className={`px-4 py-3 border ${tableBorder} text-sm ${textClass}`}>
+                      {issue.reporterDistrict}
+                    </td>
+                    <td className={`px-4 py-3 border ${tableBorder} text-sm ${textClass}`}>
+                      {issue.category}
+                    </td>
+                    <td className={`px-4 py-3 border ${tableBorder}`}>
+                      <span className={getStatusBadge(issue.status)}>
+                        {issue.status}
+                      </span>
+                    </td>
+                    <td className={`px-4 py-3 border ${tableBorder}`}>
+                      <span className={issue.priority === "High" ? "badge badge-error badge-outline" : "badge badge-ghost badge-outline"}>
+                        {issue.priority}
+                      </span>
+                    </td>
+                    <td className={`px-4 py-3 border ${tableBorder} text-sm ${textClass}`}>
+                      {issue.assignedTo?.email || (
+                        <span className="italic opacity-40">Unassigned</span>
+                      )}
+                    </td>
+                    <td className={`px-4 py-3 border ${tableBorder}`}>
+                      <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", alignItems: "center" }}>
+                        {renderActions(issue)}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* ========================
+              MOBILE CARDS (sm)
+          ======================== */}
+          <div className="md:hidden space-y-4">
+            {data.issues.map((issue) => (
+              <div
+                key={issue._id}
+                className={`rounded-xl border ${tableBorder} p-4 shadow ${mobileCardBg} space-y-2`}
+              >
+                {/* Header */}
+                <div className="flex justify-between items-start gap-2">
+                  <h3 className={`font-semibold text-base leading-snug ${titleClass}`}>
+                    {issue.title}
+                  </h3>
+                  <span className={`${getStatusBadge(issue.status)} shrink-0`}>
+                    {issue.status}
+                  </span>
+                </div>
+
+                {/* Info rows */}
+                <p className={`text-sm ${textClass}`}>
+                  <span className="font-medium">Location:</span> {issue.reporterDistrict}
+                </p>
+                <p className={`text-sm ${textClass}`}>
+                  <span className="font-medium">Category:</span> {issue.category}
+                </p>
+                <p className={`text-sm ${textClass}`}>
+                  <span className="font-medium">Priority:</span>{" "}
+                  <span className={issue.priority === "High" ? "badge badge-error badge-outline badge-sm" : "badge badge-ghost badge-outline badge-sm"}>
+                    {issue.priority}
+                  </span>
+                </p>
+                <p className={`text-sm ${textClass}`}>
+                  <span className="font-medium">Staff:</span>{" "}
+                  {issue.assignedTo?.email || <span className="italic opacity-40">Unassigned</span>}
+                </p>
+
+                {/* Action buttons */}
+                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", paddingTop: "8px" }}>
+                  {renderActions(issue)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
 
       {/* Assign Modal */}
