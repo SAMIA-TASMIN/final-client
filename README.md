@@ -2,7 +2,7 @@
 
 > **Civic Rights** is a MERN Stack civic engagement platform that allows citizens to report local issues and helps authorities manage and resolve them efficiently.
 
-🌐 **Live Demo:** [Civic Rights]()  
+🌐 **Live Demo:** [Civic Rights](https://ai-inventory-management-2575b.web.app/)  
 👨‍💻 **Developer:** Samia Tasmin Nove
 
 ---
@@ -57,5 +57,3 @@ This project focuses on **real-world problem solving**, **clean UI**, and **scal
 
 **Samia Tasmin Nova**  
 [LinkedIn](https://www.linkedin.com/in/samia-tasmin-nova-505072323/) | [GitHub](https://github.com/SAMIA-TASMIN)
-admin@civic.com 
-Admin1#

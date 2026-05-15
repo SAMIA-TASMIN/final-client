@@ -71,8 +71,8 @@ Staff: Handles on-ground resolution and updates status.`,
 
   Contact: {
     title: "Contact Support",
-    body: `📞 Phone: +880-1935841938  
-📧 Email: support@civicconnect.org  
+    body: `📞 Phone: +880-1900000008  
+📧 Email: support@civic-rights.org  
 
 Our support team is available Sunday to Thursday, 9 AM – 6 PM. 
 We are always ready to help you.`,
@@ -192,28 +192,28 @@ const Footer = () => {
             <p className={`${textClass}`}>Phone: +880-1935841938</p>
             <div className={`mt-2 flex space-x-4 ${textClass}`}>
               <a
-                href="https://www.facebook.com/fah20im04"
+                href="https://www.facebook.com"
                 aria-label="Facebook"
                 className={linkHoverClass}
               >
                 <Facebook size={18} />
               </a>
               <a
-                href="https://github.com/fah20im04"
+                href="https://github.com"
                 aria-label="Github"
                 className={linkHoverClass}
               >
                 <Github size={18} />
               </a>
               <a
-                href="https://www.instagram.com/fanion_04/"
+                href="https://www.instagram.com"
                 aria-label="Instagram"
                 className={linkHoverClass}
               >
                 <Instagram size={18} />
               </a>
               <a
-                href="https://www.linkedin.com/in/fahim-ahmed-ayon/"
+                href="https://www.linkedin.com/in"
                 aria-label="LinkedIn"
                 className={linkHoverClass}
               >
