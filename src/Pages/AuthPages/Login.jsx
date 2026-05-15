@@ -148,18 +148,18 @@ const Login = () => {
 
         {/* Demo Buttons */}
         <div className="grid grid-cols-2 gap-3 mt-4">
-          <button
+          {/* <button
             onClick={() => handleDemoLogin("user")}
             className="py-2 rounded-lg border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition"
           >
             Demo User
-          </button>
-          <button
+          </button> */}
+          {/* <button
             onClick={() => handleDemoLogin("admin")}
             className="py-2 rounded-lg border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition"
           >
             Demo Admin
-          </button>
+          </button> */}
         </div>
 
         {/* Social Login */}

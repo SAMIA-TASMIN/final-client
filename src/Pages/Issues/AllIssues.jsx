@@ -9,6 +9,7 @@ import { FaVoteYea } from "react-icons/fa";
 import Footer from "../Home/Footer";
 import LoadingPage from "../Home/LoadingPage";
 import IssueCardSkeleton from "../Home/IssueCardSkeleton";
+import Swal from "sweetalert2";
 
 // Define pagination constant and set it up for server-side control
 const ITEMS_PER_PAGE = 12;
@@ -244,7 +245,7 @@ const AllIssues = () => {
                 // Apply calculated upvote button style
                 className={`${upvoteButtonClass} px-3 py-1 rounded flex items-center gap-1 transition`}
               >
-                <FaVoteYea /> {issue.upvotes}
+                <FaVoteYea /> {issue.upvotes} 
               </button>
 
               <Link

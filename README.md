@@ -1,14 +1,14 @@
-# 🏛️ Civic-Connect
+# 🏛️ Civic Rights
 
-> **Civic-Connect** is a MERN Stack civic engagement platform that allows citizens to report local issues and helps authorities manage and resolve them efficiently.
+> **Civic Rights** is a MERN Stack civic engagement platform that allows citizens to report local issues and helps authorities manage and resolve them efficiently.
 
-🌐 **Live Demo:** [Civic-Connect]()  
+🌐 **Live Demo:** [Civic Rights]()  
 👨‍💻 **Developer:** Samia Tasmin Nove
 
 ---
 
 ## 📌 Project Overview
-Civic-Connect is a full-stack web application designed to improve communication between citizens and local authorities.  
+Civic Rights is a full-stack web application designed to improve communication between citizens and local authorities.  
 Users can report civic problems such as road damage, sanitation issues, or public safety concerns, while admins can track, manage, and update the status of reported issues.
 
 This project focuses on **real-world problem solving**, **clean UI**, and **scalable MERN architecture**.
@@ -52,15 +52,10 @@ This project focuses on **real-world problem solving**, **clean UI**, and **scal
 - 🔄 Real-time status updates  
 - 📱 Responsive design (mobile & desktop)  
 
----
-
-## 📷 Screenshot / Demo
-
-![Civic-Connect Screenshot](./civic-connect.png)
-
----
 
 ## 📫 Contact
 
 **Samia Tasmin Nova**  
 [LinkedIn](https://www.linkedin.com/in/samia-tasmin-nova-505072323/) | [GitHub](https://github.com/SAMIA-TASMIN)
+admin@civic.com 
+Admin1#
